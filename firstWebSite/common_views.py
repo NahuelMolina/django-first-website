@@ -1,22 +1,23 @@
 from django.http import HttpResponse
+from django.template import Template,Context,loader
+from django.shortcuts import render
 import datetime
-from django.template import Template,Context
 
-def saludo(req):
-    return HttpResponse("Hola pibe")
+def about_me(req):
+
+    c = {'foo':'bar'}
+    rendered = loader.render_to_string('about_me.html',c)
+
+    return HttpResponse(rendered)
 
 def init_attempt(req):
 
-    require_doc = open("D:/python-backend/firstWebsite/firstWebSite/templates/index.html")
-    templated_doc = Template(require_doc.read())
-    require_doc.close()
+    c = {'fate':'final'}
+    rendered = loader.render_to_string('index.html',c)
 
-    ctx = Context()
-    finished_doc = templated_doc.render(ctx)
+    return HttpResponse(rendered)
 
-    return HttpResponse(finished_doc)
-
-def claimDate(req):
+def claim_date(req):
     date_now = datetime.datetime.now()
     doc = """
         <html>
